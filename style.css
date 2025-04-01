@@ -1,0 +1,14 @@
+canvas {
+    border: 2px solid black;
+    display: block;
+    margin: 0 auto;
+    background: #87CEEB; /* Céu azul */
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: #4CAF50;
+}
