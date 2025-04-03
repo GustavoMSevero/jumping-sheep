@@ -15,7 +15,7 @@ const ctx = canvas.getContext('2d');
 
         // Remover configurações do sol
         const fences = [];
-        const FENCE_WIDTH = 15;
+        const FENCE_WIDTH = 8;
         const MIN_FENCE_GAP = 180;
         const MAX_FENCE_GAP = 300;
         let score = 0;
@@ -103,9 +103,37 @@ const ctx = canvas.getContext('2d');
         }
 
         // Desenhar cerca
-        function drawFence(fence) {
-            ctx.fillStyle = 'brown';
-            ctx.fillRect(fence.x, canvas.height - fence.height, fence.width, fence.height);
+        function drawFence() {
+            ctx.fillStyle = '#8B4513'; // Marrom escuro para a madeira
+
+            fences.forEach(fence => {
+                // Poste vertical mais fino
+                ctx.fillRect(fence.x, canvas.height - fence.height, fence.width, fence.height);
+                
+                // Tábuas horizontais ainda mais finas
+                const numBoards = 3;
+                const boardHeight = 6; // Reduzido de 10 para 6
+                const gapBetweenBoards = (fence.height - (numBoards * boardHeight)) / (numBoards - 1);
+                
+                // Desenhar tábuas horizontais mais finas
+                for(let i = 0; i < numBoards; i++) {
+                    const boardY = (canvas.height - fence.height) + (i * (boardHeight + gapBetweenBoards));
+                    // Tábuas mais finas e curtas
+                    ctx.fillRect(fence.x - 8, boardY, 24, boardHeight); // Ajustado de -10,28 para -8,24
+                }
+
+                // Linhas verticais mais sutis
+                ctx.strokeStyle = '#654321';
+                ctx.lineWidth = 0.3; // Reduzido de 0.5 para 0.3
+                
+                // Linhas de textura mais sutis
+                for(let i = 0; i < 2; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(fence.x + (i * 3), canvas.height - fence.height);
+                    ctx.lineTo(fence.x + (i * 3), canvas.height);
+                    ctx.stroke();
+                }
+            });
         }
 
         // Desenhar pontuação
@@ -199,7 +227,7 @@ const ctx = canvas.getContext('2d');
 
             // Desenhar elementos
             drawSheep();
-            fences.forEach(drawFence);
+            drawFence();
             drawScore();
 
             requestAnimationFrame(update);
