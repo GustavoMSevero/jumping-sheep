@@ -243,7 +243,7 @@ const ctx = canvas.getContext('2d');
                     sheep.isJumping = false;
                     fences.length = 0;
                     score = 0;
-                    gameSpeed = 2; // Reseta a velocidade inicial
+                    gameSpeed = 2;
                     gameOver = false;
                     requestAnimationFrame(update);
                 } else if (!sheep.isJumping) {
